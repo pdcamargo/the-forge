@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { ScrollArea } from '../ui/scroll-area';
-
 import { cn } from '@/utils';
+import { ScrollArea } from '../ui/scroll-area';
 
 const GameChatItem: React.FC<{
   children?: React.ReactNode;
