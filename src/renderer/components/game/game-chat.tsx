@@ -21,6 +21,8 @@ const GameChatItemsContainer: React.FC<{ children?: React.ReactNode }> = ({
   );
 };
 
+GameChatItemsContainer.displayName = 'GameChatItemsContainer';
+
 const GameChatInput: React.FC<{
   className?: string;
 }> = ({ className }) => {
@@ -37,6 +39,8 @@ const GameChatInput: React.FC<{
     </div>
   );
 };
+
+GameChatInput.displayName = 'GameChatInput';
 
 const GameChat: React.FC<{
   children?: React.ReactNode;

@@ -1,22 +1,29 @@
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
-
 import DockLayout, { LayoutData } from 'rc-dock';
+
+import '@pixi/unsafe-eval';
 
 import 'rc-dock/dist/rc-dock-dark.css';
 import './App.css';
 
+import React from 'react';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from './components/ui/accordion';
-import {
-  GameChat,
-  GameChatInput,
-  GameChatItem,
-  GameChatItemsContainer,
-} from './components/game/game-chat';
+import { GameCanvas } from './components/game/game-canvas';
+import { Inspector } from './components/editor/inspector';
+
+const GameTab = () => {
+  const parentRef = React.useRef<HTMLDivElement>(null);
+  return (
+    <div ref={parentRef} className="w-full h-full overflow-hidden">
+      <GameCanvas parentElement={parentRef.current} />
+    </div>
+  );
+};
 
 const defaultLayout: LayoutData = {
   dockbox: {
@@ -28,6 +35,13 @@ const defaultLayout: LayoutData = {
         children: [
           {
             tabs: [
+              {
+                cached: true,
+                closable: false,
+                id: 'game',
+                title: 'Game',
+                content: <GameTab />,
+              },
               {
                 id: 'tab2',
                 title: 'tab2',
@@ -50,87 +64,9 @@ const defaultLayout: LayoutData = {
         size: 0.3,
         tabs: [
           {
-            id: 'chat',
-            title: 'Chat',
-            content: (
-              <GameChat>
-                <GameChatItemsContainer>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                  <GameChatItem>Chat message 1</GameChatItem>
-                </GameChatItemsContainer>
-                <GameChatInput />
-              </GameChat>
-            ),
+            id: 'inspector',
+            title: 'Inspector',
+            content: <Inspector />,
           },
         ],
       },
